@@ -1,15 +1,17 @@
 import React from "react";
-import BotCard from "./BotCard";
 
-function BotCollection({ bots, enlistBot }) {
+function BotCollection({ bots }) {
   return (
-    <div className="bot-collection">
-      <h2>THEEE BOTS</h2>
-      <div className="bot-grid">
+    <div>
+      <h2>Available Bots</h2>
+      <ul>
         {bots.map((bot) => (
-          <BotCard key={bot.id} bot={bot} handleClick={enlistBot} />
+          <li key={bot.id}>
+            <h3>{bot.name}</h3>
+            <p>{bot.catchphrase}</p>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 }

@@ -1,20 +1,24 @@
 import React from "react";
-import BotCard from "./BotCard";
 
-function BotArmy({ bots, releaseBot, dischargeBot }) {
+function BotArmy({ bots }) {
+  // Filter only enlisted bots for the army
+  const enlistedBots = bots.filter((bot) => bot.enlisted);
+
   return (
-    <div className="bot-army">
-      <h2>OSCAR BOT ARMY</h2>
-      <div className="bot-grid">
-        {bots.map((bot) => (
-          <BotCard
-            key={bot.id}
-            bot={bot}
-            handleClick={releaseBot}
-            dischargeBot={dischargeBot}
-          />
-        ))}
-      </div>
+    <div>
+      <h2>Your Bot Army</h2>
+      {enlistedBots.length === 0 ? (
+        <p>No bots enlisted yet.</p>
+      ) : (
+        <ul>
+          {enlistedBots.map((bot) => (
+            <li key={bot.id}>
+              <h3>{bot.name}</h3>
+              <p>{bot.catchphrase}</p>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }

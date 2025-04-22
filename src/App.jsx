@@ -1,43 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import BotCollection from "./components/BotCollection";
 import BotArmy from "./components/BotArmy";
-import "./index.css";
 
 function App() {
   const [bots, setBots] = useState([]);
-  const [army, setArmy] = useState([]);
 
+  // Fetch data from API
   useEffect(() => {
-    fetch("http://localhost:3000/bots")
-      .then((res) => res.json())
+    fetch(`${process.env.REACT_APP_API_URL}/bots`)
+      .then((response) => response.json())
       .then((data) => setBots(data));
   }, []);
 
-  function enlistBot(bot) {
-    if (!army.find((b) => b.id === bot.id)) {
-      setArmy([...army, bot]);
-    }
-  }
-
-  function releaseBot(bot) {
-    setArmy(army.filter((b) => b.id !== bot.id));
-  }
-
-  function dischargeBot(bot) {
-    fetch(`http://localhost:3000/bots/${bot.id}`, { method: "DELETE" });
-    setBots(bots.filter((b) => b.id !== bot.id));
-    setArmy(army.filter((b) => b.id !== bot.id));
-  }
-
   return (
-    <div className="container">
-      <h1>OSCAR BOT BATTLR</h1>
-      <BotArmy
-        bots={army}
-        releaseBot={releaseBot}
-        dischargeBot={dischargeBot}
-      />
-      <BotCollection bots={bots} enlistBot={enlistBot} />
+    <div className="App">
+      <h1>Bot Battlr</h1>
+      <BotCollection bots={bots} />
+      <BotArmy bots={bots} />
     </div>
   );
 }
