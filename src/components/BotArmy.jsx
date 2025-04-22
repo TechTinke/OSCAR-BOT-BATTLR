@@ -1,23 +1,17 @@
 import React from "react";
 
 function BotArmy({ bots }) {
-  // Filter only enlisted bots for the army
-  const enlistedBots = bots.filter((bot) => bot.enlisted);
-
   return (
-    <div>
+    <div className="bot-army">
       <h2>Your Bot Army</h2>
-      {enlistedBots.length === 0 ? (
-        <p>No bots enlisted yet.</p>
-      ) : (
+      {bots.length > 0 ? (
         <ul>
-          {enlistedBots.map((bot) => (
-            <li key={bot.id}>
-              <h3>{bot.name}</h3>
-              <p>{bot.catchphrase}</p>
-            </li>
+          {bots.map((bot) => (
+            <li key={bot.id}>{bot.name}</li>
           ))}
         </ul>
+      ) : (
+        <p>No bots enlisted</p>
       )}
     </div>
   );
